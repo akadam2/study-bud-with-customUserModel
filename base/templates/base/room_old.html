@@ -1,0 +1,53 @@
+
+{% extends 'base/main.html' %}
+
+{% block content %}
+    <div class="container px-3">
+        <div class="row gx-3">
+            <!-- Room Column -->
+            <div class="col-8">
+                <div class="container p-2 border bg-light">
+                    <div class="border-bottom h3 py-1">{{room.name}}</div>
+                    <p></p>
+                    {% for message in room_messages %}
+                        <div class="h4 pt-3 mt-3 "> 
+                            <a href="">@{{message.user}}</a>
+                            <small class="text-muted">{{message.created | timesince}} ago</small>
+                            {% if message.user == request.user %}
+                            <span class="float-end">
+                                <button class="btn btn-outline-primary">
+                                    <a class="text-decoration-none"href="{% url 'base:delete-message' message.id %}">Delete</a>
+                                </button>
+                            </span>
+                            {% endif %}
+                        </div>
+                        <div class="h5 mb-2">{{message.body}}</div>
+                        <hr>
+                    {% endfor %}    
+                    {% if request.user.is_authenticated %}
+                        <div class="comment-form">
+                            <form method="POST"action="">
+                                {% csrf_token %}
+                                <input type="text" class="form-control form-control-lg" name="body" placeholder="Write your message here..">
+                    
+                            </form>
+                        </div>
+                    {% endif %}
+                </div>
+                
+            </div>
+            <!-- Participants Column -->
+            <div class="col-4">
+                <div class="container border p-2 bg-light">
+                    <div class="border-bottom h3 py-1">
+                        Participants
+                    </div>
+                    {% for user in participants %}
+                        <div class="h5 mt-2">@{{user}}</div>
+                    {% endfor %}    
+                </div>
+            </div>
+        </div>
+    </div>
+    
+{% endblock %}

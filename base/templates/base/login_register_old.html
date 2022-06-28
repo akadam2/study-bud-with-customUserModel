@@ -1,0 +1,55 @@
+{% extends 'base/main.html' %}
+
+{% block content %}
+
+{% if page == "login" %}
+    <!-- Login Page -->
+    <form method="POST" action="">
+        {% csrf_token %}
+        <div class="mb-3 p-3">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" name="username" id="" class="form-control" placeholder="Enter Username">
+        </div>
+
+        <div class="mb-3 p-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" name="password" id="" class="form-control" placeholder="Enter Password">
+        </div>
+
+        <div class="p-3">
+            <button type="submit" class="btn btn-primary ">Submit</button>
+        </div>
+        <div class="mt-3 px-3">
+            <label for="" class="form-label">Haven't signed up yet?</label>
+        </div>
+        <div class="px-3">
+            <a href="{% url 'base:register' %}">
+                <button type="button" class="btn btn-primary">Sign Up</button>
+            </a>
+        </div>
+    </form>
+
+{% else %}    
+
+    <!-- Register Page -->
+    <form method="POST" action="">
+        {% csrf_token %}
+        <div class="h5">
+            {{ form.as_p }}
+        </div>
+
+        <div class="p-3">
+            <button type="submit" class="btn btn-primary ">Submit</button>
+        </div>
+        <div class="mt-3 px-3">
+            <label for="" class="form-label">Already signed up?</label>
+        </div>
+        <div class="px-3">
+            <a href="{% url 'base:login' %}">
+                <button type="button" class="btn btn-primary">Login</button>
+            </a>
+        </div>
+    </form>
+{% endif %}
+
+{% endblock %}

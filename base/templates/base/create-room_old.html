@@ -1,0 +1,13 @@
+{% extends 'base/main.html' %}
+
+{% block content %}
+    <form method='POST' action="">
+        {% csrf_token %}
+        <div class="h4">
+            {{ form.as_p }}
+        </div>
+        <!-- <input type="text" class="form-control" placeholder="Create Room"> -->
+        <button type="submit" class="btn btn-primary">Create</button>
+        <button type="button" class="btn btn-secondary">Submit</button>
+    </form>
+{% endblock %}
